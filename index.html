@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rede de Apoio Seguro - MZ</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Poppins',sans-serif;background:#fff0f6;color:#4a2c5a}
+.capa{width:100%;height:320px;background:linear-gradient(rgba(122,74,158,0.4),rgba(255,214,232,0.4)), url('IMG_9467.jpeg');background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;flex-direction:column;color:white;text-align:center}
+.capa h1{font-size:26px;text-shadow:0 2px 8px black}.capa h2{font-size:11px;background:white;color:#7a4a9e;padding:8px 16px;border-radius:25px;margin-top:8px}
+.container{max-width:530px;margin:-20px auto;padding:0 14px}.card{background:white;margin:12px 0;padding:18px;border-radius:18px;box-shadow:0 6px 20px rgba(122,74,158,0.1);border:1px solid #ffd6e8}
+.btn{border:none;padding:14px;border-radius:30px;width:100%;font-weight:700;cursor:pointer;margin-top:6px}.btn-roxo{background:#7a4a9e;color:white}.btn-verde{background:#25D366;color:white}
+select,input{width:100%;padding:12px;margin:6px 0;border-radius:12px;border:1.5px solid #e8d5f2;background:#fefcff}
+.vol-card{border:1px solid #e8d5f2;padding:12px;margin:8px 0;border-radius:12px;background:#fefcff;font-size:12px}
+.area-anjo{border:2px dashed #7a4a9e;background:#fcf8ff}
+</style>
+</head>
+<body>
+<div class="capa"><h1>🌸 Rede de Apoio Seguro</h1><h2>✨ Moçambique - Estás segura ✨</h2></div>
+<div class="container">
+
+<!-- 1. VÍTIMA - SÓ VÊ ANJOS, NÃO VÊ GRUPO -->
+<div class="card">
+<h3>💜 Precisas de apoio urgente?</h3>
+<select id="prov"><option>Nampula</option><option>Maputo Cidade</option><option>Maputo Província</option><option>Gaza</option><option>Inhambane</option><option>Sofala</option><option>Manica</option><option>Tete</option><option>Zambézia</option><option>Cabo Delgado</option><option>Niassa</option></select>
+<select id="tipo"><option>Violência Física</option><option>Violência Psicológica</option><option>Risco de Feminicídio</option><option>Depressão / Ansiedade</option><option>Apoio Jurídico</option><option>Abrigo</option></select>
+<input type="text" id="bairro" placeholder="Teu bairro ex: Muhaivire">
+<button class="btn btn-roxo" onclick="verAnjos()">💜 VER ANJOS PRÓXIMOS</button>
+</div>
+
+<div class="card" id="resultadoVitima" style="display:none">
+<h3>💗 Anjos perto de ti - Fala direto com 850730250</h3>
+<div id="listaAnjosVitima"></div>
+<p style="font-size:10px;margin-top:8px;color:#7a4a9e">🔒 Tua conversa é privada com a voluntária 850730250</p>
+</div>
+
+<!-- 2. QUERO SER ANJO -->
+<div class="card" style="background:linear-gradient(135deg,#e8d5f2,#ffd6e8)">
+<h3>🤝 Quero ser Anjo Voluntária</h3>
+<input type="text" id="nomeN" placeholder="Teu nome">
+<input type="tel" id="telN" placeholder="WhatsApp 84xxxxxxx">
+<select id="provN"><option value="">Tua província</option><option>Nampula</option><option>Maputo Cidade</option><option>Maputo Província</option><option>Gaza</option><option>Inhambane</option><option>Sofala</option><option>Manica</option><option>Tete</option><option>Zambézia</option><option>Cabo Delgado</option><option>Niassa</option></select>
+<button class="btn btn-roxo" onclick="serAnjo()">💜 Enviar pedido para 850730250</button>
+</div>
+
+<!-- 3. ÁREA EXCLUSIVA ANJOS - SÓ APARECE COM CÓDIGO 850730250 -->
+<div class="card area-anjo">
+<h3>🔐 Área Exclusiva Anjos - Código: 850730250</h3>
+<p style="font-size:10px">Só voluntárias aprovadas. Digita código para ver opção de enviar para grupo.</p>
+<input type="password" id="codigoAnjo" placeholder="Digita código de Anjo (850730250)">
+<button class="btn btn-roxo" onclick="abrirAreaAnjo()">🔓 Entrar na Área Anjo</button>
+
+<div id="areaAnjoConteudo" style="display:none;margin-top:12px">
+<hr style="margin:10px 0">
+<h3>📢 Reencaminhar caso para Grupo Central</h3>
+<p style="font-size:11px">Aqui tu como Anjo podes enviar o caso da vítima para aprovação no grupo:</p>
+<select id="provAnjo"><option>Nampula</option><option>Maputo Cidade</option><option>Maputo Província</option><option>Gaza</option><option>Inhambane</option><option>Sofala</option><option>Manica</option><option>Tete</option><option>Zambézia</option><option>Cabo Delgado</option><option>Niassa</option></select>
+<select id="tipoAnjo"><option>Violência Física</option><option>Violência Psicológica</option><option>Risco de Feminicídio</option><option>Depressão</option><option>Apoio Jurídico</option><option>Abrigo</option></select>
+<input type="text" id="bairroAnjo" placeholder="Bairro da vítima ex: Muhaivire">
+<textarea id="obsAnjo" placeholder="Observação do caso (sem nome da vítima por segurança)" style="width:100%;padding:10px;border-radius:12px;border:1.5px solid #e8d5f2;margin:6px 0;font-family:'Poppins';height:60px"></textarea>
+<button class="btn btn-verde" onclick="mandarParaGrupoAnjo()">📢 ENVIAR PARA GRUPO CENTRAL PARA APROVAÇÃO</button>
+<a href="https://chat.whatsapp.com/GlXSU3agEAU5RZzj3FidR2?mode=gi_t" target="_blank" style="background:#25D366;color:white;padding:10px;border-radius:20px;text-decoration:none;display:block;text-align:center;margin-top:8px;font-size:12px">💬 Abrir Grupo Central</a>
+<small style="font-size:9px">Só Anjos veem este botão. Vítimas não veem.</small>
+</div>
+</div>
+
+<div class="card">
+<h3>💗 Nossos Anjos - Voluntária 850730250</h3>
+<div id="anjosFixos"></div>
+</div>
+
+</div>
+
+<script>
+const GRUPO = "https://chat.whatsapp.com/GlXSU3agEAU5RZzj3FidR2?mode=gi_t";
+const ADMIN = "258850730250";
+const CODIGO_ANJO = "850730250";
+
+const anjos = [
+{nome:"Charmila Elija - Admin 850730250", prov:"Nampula", bairro:"Muhaivire", tel:"258850730250", skill:"Coordenação"},
+{nome:"Charmila Elija - Voluntária 850730250", prov:"Nampula", bairro:"Muhaivire", tel:"258850730250", skill:"Apoio Comunitário"}
+];
+
+function mostrarFixos(){
+let h=""; anjos.forEach(a=>{h+=`<div class="vol-card"><b>${a.nome}</b><br>📍 ${a.prov} - ${a.bairro}<br>📞 ${a.tel}<br><a href="https://wa.me/${a.tel}?text=Olá%20preciso%20de%20ajuda" style="background:#7a4a9e;color:white;padding:6px 12px;border-radius:15px;text-decoration:none;font-size:11px;display:inline-block;margin-top:5px">💬 Falar com 850730250</a></div>`;});
+document.getElementById('anjosFixos').innerHTML=h;
+}
+mostrarFixos();
+
+// VÍTIMA - SÓ VÊ ANJO, NÃO VÊ GRUPO
+function verAnjos(){
+let prov=document.getElementById('prov').value;
+let tipo=document.getElementById('tipo').value;
+let bairro=document.getElementById('bairro').value || "Centro";
+document.getElementById('resultadoVitima').style.display='block';
+let html="";
+anjos.forEach(a=>{
+html+=`<div class="vol-card" style="border-left:4px solid #7a4a9e"><b>${a.nome}</b><br>📍 ${a.prov} - ${a.bairro}<br>📞 ${a.tel} - ${a.skill}<br><a href="https://wa.me/${a.tel}?text=Olá%20Charmila%20preciso%20de%20${tipo}%20em%20${prov}%20${bairro}%20-%20Voluntária%20850730250" style="background:#7a4a9e;color:white;padding:8px 14px;border-radius:20px;text-decoration:none;display:inline-block;margin-top:6px">💬 Pedir ajuda para 850730250</a></div>`;
+});
+document.getElementById('listaAnjosVitima').innerHTML=html;
+document.getElementById('resultadoVitima').scrollIntoView({behavior:'smooth'});
+}
+
+// ANJO - ABRE ÁREA COM CÓDIGO 850730250
+function abrirAreaAnjo(){
+let codigo=document.getElementById('codigoAnjo').value.trim();
+if(codigo===CODIGO_ANJO || codigo==="258850730250"){
+document.getElementById('areaAnjoConteudo').style.display='block';
+alert("✅ Acesso liberado! Agora podes enviar casos para o Grupo Central.");
+}else{
+alert("❌ Código errado. Código de Anjo é 850730250");
+}
+}
+
+// SÓ ANJO ENVIA PARA GRUPO
+function mandarParaGrupoAnjo(){
+let prov=document.getElementById('provAnjo').value;
+let tipo=document.getElementById('tipoAnjo').value;
+let bairro=document.getElementById('bairroAnjo').value || "Não informado";
+let obs=document.getElementById('obsAnjo').value || "Sem obs - segurança";
+let msg=`🚨 *CASO REENCAMINHADO POR ANJO - PARA APROVAÇÃO* 🚨
+
+👩‍💼 *Anjo que envia:* Voluntária 850730250
+📍 *Província da vítima:* ${prov}
+🏠 *Bairro:* ${bairro}
+💔 *Tipo:* ${tipo}
+📝 *Obs:* ${obs}
+📅 *Data:* ${new Date().toLocaleDateString()}
+
+✅ *Aprovar este atendimento?
+Quem pode atender?*
+
+Grupo: ${GRUPO}
+Admin: 850730250`;
+let cod=encodeURIComponent(msg);
+// Vai direto para o grupo via compartilhamento + teu privado
+window.open(`https://api.whatsapp.com/send?text=${cod}`, '_blank');
+setTimeout(()=>{window.open(`https://wa.me/${ADMIN}?text=${cod}`, '_blank');},800);
+setTimeout(()=>{window.open(GRUPO, '_blank');},1500);
+}
+
+function serAnjo(){
+let nome=document.getElementById('nomeN').value.trim();
+let tel=document.getElementById('telN').value.trim();
+let prov=document.getElementById('provN').value;
+if(!nome||!tel||!prov){alert("Preenche nome, tel e província");return;}
+let telLimpo=tel.replace(/\D/g,''); if(!telLimpo.startsWith('258')) telLimpo='258'+telLimpo;
+let msg=`NOVO PEDIDO ANJO 💜 Nome:${nome} Tel:${telLimpo} Prov:${prov} Código Anjo:850730250 Grupo:${GRUPO}`;
+window.open(`https://wa.me/${ADMIN}?text=${encodeURIComponent(msg)}`, '_blank');
+setTimeout(()=>{window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`, '_blank');},800);
+alert("Enviado para 850730250 e Grupo Central!");
+}
+</script>
+</body>
+</html>
